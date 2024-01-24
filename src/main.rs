@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 #[derive(Component)]
-struct værsåsnillogroter {}
+struct VærSåSnillOgRoter {}
 
 
 fn main(){
@@ -14,7 +14,7 @@ fn main(){
 
 
 fn rotate_cube(
-    mut query: Query<&mut Transform,With<værsåsnillogroter>>
+    mut query: Query<&mut Transform,With<VærSåSnillOgRoter>>
 ){
     for mut transform in query.iter_mut(){
         transform.rotate_y(0.001);
@@ -22,18 +22,20 @@ fn rotate_cube(
 }
 
 
+
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    asset_server: Res<AssetServer>,
 ) {
     commands.spawn((PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+        mesh: meshes.add(Mesh::from(shape::Box::new(10.0, 0.15, 10.0))),
         material: materials.add(Color::rgb_u8(124, 144, 255).into()),
-        transform: Transform::from_xyz(0.0, 0.0, 0.0),
+        transform: Transform::from_xyz(0.0, -1.0, 0.0),
         ..default()
     },
-        værsåsnillogroter{}
+        VærSåSnillOgRoter{}
     ));
     // light
     commands.spawn(PointLightBundle {
@@ -50,4 +52,23 @@ fn setup(
         transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     });
+
+
+    //OMGAWD its MRGOOF
+    commands.spawn((
+    	PbrBundle {
+    		mesh: meshes.add(Mesh::from(shape::Quad::new(Vec2::new(1.0, 2.0)))),
+    		transform: Transform::from_xyz(0.0, 0.0, 0.0),
+    		material: materials.add(
+    			StandardMaterial {
+    				base_color_texture: Some(asset_server.load("Mr_goof.png")),
+    				perceptual_roughness: 1.0,
+					alpha_mode: AlphaMode::Mask(0.5),
+					cull_mode: None,
+					..default()
+    			}
+    		),
+    		..default()
+    	},
+    	));
 }
