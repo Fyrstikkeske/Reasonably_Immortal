@@ -1,26 +1,13 @@
 use bevy::prelude::*;
 
-#[derive(Component)]
-struct VærSåSnillOgRoter {}
-
 
 fn main(){
     App::new()
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, setup)
-        .add_systems(Update, rotate_cube)
+//        .add_systems(Update)
         .run();
 }
-
-
-fn rotate_cube(
-    mut query: Query<&mut Transform,With<VærSåSnillOgRoter>>
-){
-    for mut transform in query.iter_mut(){
-        transform.rotate_y(0.001);
-    }
-}
-
 
 
 fn setup(
@@ -35,7 +22,6 @@ fn setup(
         transform: Transform::from_xyz(0.0, -1.0, 0.0),
         ..default()
     },
-        VærSåSnillOgRoter{}
     ));
     // light
     commands.spawn(PointLightBundle {
