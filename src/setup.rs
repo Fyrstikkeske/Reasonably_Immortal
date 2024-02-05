@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-
+use bevy_xpbd_3d::prelude::*;
 
 
 pub fn setup(
@@ -8,11 +8,14 @@ pub fn setup(
     mut materials: ResMut<Assets<StandardMaterial>>,
     asset_server: Res<AssetServer>,
 ) {
-    commands.spawn((PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Box::new(10.0, 0.15, 10.0))),
-        material: materials.add(Color::rgb_u8(124, 144, 255).into()),
-        transform: Transform::from_xyz(0.0, -1.0, 0.0),
-        ..default()
+    commands.spawn((
+        RigidBody::Static,
+        Collider::cuboid(10.0, 0.15, 10.0),
+        PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Box::new(10.0, 0.15, 10.0))),
+            material: materials.add(Color::rgb_u8(124, 144, 255).into()),
+            transform: Transform::from_xyz(0.0, -1.0, 0.0),
+            ..default()
     },
     ));
     // light
@@ -34,8 +37,11 @@ pub fn setup(
 
     //OMGAWD its MRGOOF
     commands.spawn((
+        RigidBody::Dynamic,
+        AngularVelocity(Vec3::new(2.5, 3.4, 1.6)),
+        Collider::cuboid(1.0, 1.0, 0.002),
     	PbrBundle {
-    		mesh: meshes.add(Mesh::from(shape::Quad::new(Vec2::new(1.0, 2.0)))),
+    		mesh: meshes.add(Mesh::from(shape::Quad::new(Vec2::new(1.0, 1.0)))),
     		transform: Transform::from_xyz(0.0, 0.0, 0.0),
     		material: materials.add(
     			StandardMaterial {
