@@ -1,6 +1,11 @@
 use bevy::prelude::*;
 use bevy_xpbd_3d::prelude::*;
 
+use crate::player::Playerdata;
+
+
+#[derive(Component)]
+struct Camera;
 
 pub fn setup(
     mut commands: Commands,
@@ -29,14 +34,18 @@ pub fn setup(
         ..default()
     });
     // camera
-    commands.spawn(Camera3dBundle {
+    commands.spawn(
+    (Camera3dBundle {
         transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
-    });
+    },
+	Camera
+    ));
 
 
     //OMGAWD its MRGOOF
     commands.spawn((
+    	Playerdata{playernumber: 0},
         RigidBody::Dynamic,
         AngularVelocity(Vec3::new(2.5, 3.4, 1.6)),
         Collider::cuboid(1.0, 1.0, 0.002),
