@@ -46,9 +46,9 @@ pub fn setup(
     //OMGAWD its MRGOOF
     commands.spawn((
     	Playerdata{playernumber: 0},
-        RigidBody::Dynamic,
-        AngularVelocity(Vec3::new(2.5, 3.4, 1.6)),
-        Collider::cuboid(1.0, 1.0, 0.002),
+		RigidBody::Dynamic,
+		Collider::cuboid(1.0, 1.0, 0.002),
+		LockedAxes::from_bits(0b000_111),
     	PbrBundle {
     		mesh: meshes.add(Mesh::from(shape::Quad::new(Vec2::new(1.0, 1.0)))),
     		transform: Transform::from_xyz(0.0, 0.0, 0.0),
