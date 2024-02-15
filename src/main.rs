@@ -11,6 +11,38 @@ fn main(){
         .add_plugins((DefaultPlugins, PhysicsPlugins::default()))
         .add_systems(Startup, crate::setup::setup)
         .add_systems(Update, player::move_camera_to_player_system)
+        .add_systems(Update, moveplayer)
         .run();
 }
 
+
+fn moveplayer(
+	mut query: Query<&mut LinearVelocity, With<player::Playerdata>>,
+	keyboard_input: Res<Input<KeyCode>>,
+){
+	for mut linear_velocity in query.iter_mut() {
+			
+			let xvel = match(
+				keyboard_input.pressed(KeyCode::A),
+				keyboard_input.pressed(KeyCode::D) 
+			){
+				(true, false) => -1.0,
+				(false, true) => 1.0,
+				_ => 0.0,
+			};
+			
+			let zvel = match(
+				keyboard_input.pressed(KeyCode::W),
+				keyboard_input.pressed(KeyCode::S) 
+			){
+				(true, false) => -1.0,
+				(false, true) => 1.0,
+				_ => 0.0,
+			};
+			
+	        linear_velocity.x += xvel;
+			linear_velocity.z += zvel;
+
+	        
+	}
+}
