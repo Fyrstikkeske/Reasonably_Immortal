@@ -12,9 +12,22 @@ fn main(){
         .add_plugins((DefaultPlugins, PhysicsPlugins::default()))
         .add_systems(Startup, crate::setup::setup)
         .add_systems(PostUpdate, player::move_camera_to_player_system.after(PhysicsSet::Sync).before(TransformSystem::TransformPropagate))
-        .add_systems(Update, moveplayer)
+        .add_systems(Update, (moveplayer, camerarot))
         .run();
 }
+
+
+fn camerarot(
+	mut query: Query<&mut Transform, With<Camera>>,
+){
+	for mut transform in query.iter_mut(){
+		let (mut yaw, mut pitch, _) = transform.rotation.to_euler(EulerRot::YXZ);
+		yaw += 1.0_f32.to_radians();
+		//pitch += 1_f32.to_radians();
+		transform.rotation = Quat::from_axis_angle(Vec3::Y, yaw) * Quat::from_axis_angle(Vec3::X, pitch);
+	}
+}
+
 
 
 fn moveplayer(

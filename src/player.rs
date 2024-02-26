@@ -16,7 +16,7 @@ pub fn move_camera_to_player_system(
 	for mut cameratransform in camera.iter_mut(){
 		for (playerposition, playerdata) in player.iter(){
 			if playerdata.playernumber == 0{
-				cameratransform.translation = playerposition.translation;
+				cameratransform.translation = playerposition.translation + Vec3::new(0.0,0.0,0.0);
 			}
 		}		
 	}
