@@ -19,13 +19,13 @@ fn main(){
 
 fn moveplayer(
 	mut query: Query<&mut LinearVelocity, With<player::Playerdata>>,
-	keyboard_input: Res<Input<KeyCode>>,
+	keyboard_input: Res<ButtonInput<KeyCode>>,
 ){
 	for mut linear_velocity in query.iter_mut() {
 			
 			let xvel = match(
-				keyboard_input.pressed(KeyCode::A),
-				keyboard_input.pressed(KeyCode::D) 
+				keyboard_input.pressed(KeyCode::KeyA),
+				keyboard_input.pressed(KeyCode::KeyD) 
 			){
 				(true, false) => -1.0,
 				(false, true) => 1.0,
@@ -33,8 +33,8 @@ fn moveplayer(
 			};
 			
 			let zvel = match(
-				keyboard_input.pressed(KeyCode::W),
-				keyboard_input.pressed(KeyCode::S) 
+				keyboard_input.pressed(KeyCode::KeyW),
+				keyboard_input.pressed(KeyCode::KeyS) 
 			){
 				(true, false) => -1.0,
 				(false, true) => 1.0,

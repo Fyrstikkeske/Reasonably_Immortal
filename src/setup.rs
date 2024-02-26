@@ -17,8 +17,8 @@ pub fn setup(
         RigidBody::Static,
         Collider::cuboid(10.0, 0.15, 10.0),
         PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::Box::new(10.0, 0.15, 10.0))),
-            material: materials.add(Color::rgb_u8(124, 144, 255).into()),
+            mesh: meshes.add(Mesh::from(Cuboid::new(10.0, 0.15, 10.0))),
+            material: materials.add(Color::rgb_u8(124, 144, 255)),
             transform: Transform::from_xyz(0.0, -1.0, 0.0),
             ..default()
     },
@@ -50,7 +50,7 @@ pub fn setup(
 		Collider::cuboid(1.0, 1.0, 0.002),
 		LockedAxes::from_bits(0b000_111),
     	PbrBundle {
-    		mesh: meshes.add(Mesh::from(shape::Quad::new(Vec2::new(1.0, 1.0)))),
+    		mesh: meshes.add(Mesh::from(Rectangle::new(1.0, 1.0))),
     		transform: Transform::from_xyz(0.0, 0.0, 0.0),
     		material: materials.add(
     			StandardMaterial {
