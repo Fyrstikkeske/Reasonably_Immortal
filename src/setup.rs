@@ -36,6 +36,12 @@ pub fn setup(
     // camera
     commands.spawn(
     (Camera3dBundle {
+    	projection: PerspectiveProjection {
+    		// We must specify the FOV in radians.
+    		// Rust can convert degrees to radians for us.
+    		fov: 90.0_f32.to_radians(),
+    		..default()
+    		}.into(),
         transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     },
