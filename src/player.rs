@@ -69,8 +69,8 @@ pub fn camerarot(
 		let (mut yaw, mut pitch, _) = transform.rotation.to_euler(EulerRot::YXZ);
 		
 		for ev in motion.read(){
-			yaw += ev.delta.x.to_radians();
-			pitch += ev.delta.y.to_radians();
+			yaw -= ev.delta.x.to_radians();
+			pitch -= ev.delta.y.to_radians();
 		}
 		pitch = pitch.clamp(-160.0, 160.0);
 
