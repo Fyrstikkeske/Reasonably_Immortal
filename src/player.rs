@@ -73,7 +73,7 @@ pub fn camerarot(
 			pitch -= ev.delta.y.to_radians();
 		}
 		pitch = pitch.clamp(-160.0, 160.0);
-
+		
 		transform.rotation = Quat::from_axis_angle(Vec3::Y, yaw) * Quat::from_axis_angle(Vec3::X, pitch);
 	}
 }

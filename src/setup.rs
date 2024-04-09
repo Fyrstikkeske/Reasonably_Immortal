@@ -9,6 +9,26 @@ struct Camera;
 
 pub fn setup(
     mut commands: Commands,
+){
+    // camera
+    commands.spawn(
+        (Camera3dBundle {
+            projection: PerspectiveProjection {
+                // We must specify the FOV in radians.
+                // Rust can convert degrees to radians for us.
+                fov: 90.0_f32.to_radians(),
+                ..default()
+                }.into(),
+            transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
+            ..default()
+        },
+        Camera
+        ));
+}
+
+
+pub fn setup2(
+    mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     asset_server: Res<AssetServer>,
@@ -33,20 +53,6 @@ pub fn setup(
         transform: Transform::from_xyz(4.0, 8.0, 4.0),
         ..default()
     });
-    // camera
-    commands.spawn(
-    (Camera3dBundle {
-    	projection: PerspectiveProjection {
-    		// We must specify the FOV in radians.
-    		// Rust can convert degrees to radians for us.
-    		fov: 90.0_f32.to_radians(),
-    		..default()
-    		}.into(),
-        transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
-        ..default()
-    },
-	Camera
-    ));
 
 
     //OMGAWD its MRGOOF
